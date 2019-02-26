@@ -81,6 +81,10 @@ const loadComponent = (targetName, context = {}, overrideInjector) => {
       }
 
       if (Target) {
+        let output = (
+          <Target {...this.props} />
+        );
+
         if (context) {
           // allows for submitting partial store or client
           const fullContext = { ...window.ss, ...context };
@@ -88,15 +92,16 @@ const loadComponent = (targetName, context = {}, overrideInjector) => {
             store,
             apolloClient: client,
           } = fullContext;
-          return (
-            <ApolloProvider client={client}>
-              <Provider store={store}>
-                <Target {...this.props} />
-              </Provider>
-            </ApolloProvider>
-          );
+
+          if (store) {
+            output = <Provider store={store}>{output}</Provider>;
+          }
+
+          if (client) {
+            output = <ApolloProvider client={client}>{output}</ApolloProvider>;
+          }
         }
-        return <Target {...this.props} />;
+        return output
       }
       return null;
     }
