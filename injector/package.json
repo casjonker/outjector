@@ -1,0 +1,54 @@
+{
+  "name": "@silverstripe/injector",
+  "description": "A dependency injection layer for sharing components between React applications",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "webpack",
+    "watch": "webpack --watch",
+    "prod": "webpack -p",
+    "test": "jest"
+  },
+  "dependencies": {
+    "apollo-client": "^2.4.13",
+    "classnames": "^2.2.6",
+    "graphql": "^14.1.1",
+    "graphql-tag": "^2.10.1",
+    "merge": "^1.2.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.3",
+    "react-apollo": "^2.4.1",
+    "react-dom": "^16.8.3",
+    "react-redux": "^6.0.1",
+    "redux": "^4.0.1",
+    "redux-form": "^8.1.0",
+    "toposort": "^2.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "expose-loader": "^0.7.5",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
+    "babel-jest": "^24.1.0",
+    "jest-cli": "^24.1.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.9.1"
+  },
+  "jest": {
+    "roots": [
+      "src"
+    ],
+    "moduleDirectories": [
+      "src",
+      "node_modules"
+    ],
+    "testMatch": [
+      "**/tests/**/*-test.js?(x)"
+    ],
+    "transform": {
+      ".*": "babel-jest"
+    }
+  }
+}
