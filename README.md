@@ -2,6 +2,11 @@
 
 A PoC for using Injector.js as a standalone dependency in apps outside of the CMS.
 
+### Requirements
+
+- Node 10.x
+- Yarn
+
 ### Getting Started
 
 1. Run `yarn` in all three directories (injector, primary, secondary)
