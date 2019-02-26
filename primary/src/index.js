@@ -1,25 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { combineReducers, createStore } from 'redux';
+import { Provider } from 'react-redux';
 
-import Injector from 'lib/Injector';
-import { withInjector, loadComponent } from 'lib/Injector';
+import Injector, { withInjector, provideInjector } from 'lib/Injector';
 
 import App from './components/App';
-
-Injector.component.register('App', App);
+import initStore from './store';
 
 function appBoot() {
+    window.ss = window.ss || {};
+
+    initStore();
+
+    console.log('appBoot');
+
     Injector.ready(() => {
-        const AppComponent = loadComponent('App');
-        // const SecondaryComponent = Injector.component.get('SecondaryComponent');
+        const rootReducer = combineReducers(Injector.reducer.getAll());
+        const store = createStore(
+            rootReducer, {},
+            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        );
+
+        window.ss.store = store;
+        Injector.reducer.setStore(store);
+
+        const AppComponent = provideInjector(() => (
+            <Provider store={store}>
+                <App />
+            </Provider>
+        ));
 
         ReactDOM.render(
-            (
-                <div>
-                    <AppComponent />
-                    {/*<SecondaryComponent />*/}
-                </div>
-            ),
+            <AppComponent />,
             document.getElementById('app')
         );
     });

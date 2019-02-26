@@ -22,13 +22,24 @@ This could be caused by a variety of factors, but the use-case that sparked this
 which will have an environment-agnostic app (can be rendered in the CMS or front-end) that needs to make use of UI
 components defined in 'plugin' modules (which handle specific authentication methods).
 
+The `primary` folder / build in this PoC is the environment-agnostic 'host' application, while the `secondary` folder /
+build serves to register additional components for the host app, and to modify its behaviour via transformations.
+
 ### Current state
 
 This copy of Injector.js includes all four providers (Components, Reducers, Forms and GraphQL Queries), but so far only
-the Component provider has undergone testing. The following features are known to either be working or broken.
+the Component and Reducer providers have undergone testing. The following features are confirmed to either be working or
+broken.
 
 #### Component Provider
 
 - [x] Simple component registration / consumption (via `Injector.component.register()` and `Injector.component.get()`)
-- [x] Simple component transforms (used to wrap existing components in HOCs via `Injector.transform()`)
-- [ ] Dependency injection in component definitions via `inject()()` HOC (used to provide extra components as props)
+- [x] Simple component transformations (used to wrap existing components in HOCs via `Injector.transform()`)
+- [x] Dependency injection in component definitions via `inject()()` HOC (used to inject components as props)
+
+#### Reducer Provider
+
+- [x] Initialisation of store (via `Injector.reducer.setStore()`)
+- [x] Consumption of store with `react-redux`'s `connect()` pattern
+- [x] Reducer transformations (used to modify / overload the behaviour of store actions via `Injector.transform()`)
+    _(NOTE: These transformations don't seem to be receiving globalState correctly at the moment)_
